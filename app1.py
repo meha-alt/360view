@@ -32,10 +32,14 @@ col1, col2 = st.columns(2)
 
 # Left column - Audio section
 with col2:
+    # Fix: Use binary reading for Streamlit Cloud
+    try:
+        with open("voiceovers/Rumtek_Monastery.mp3", "rb") as audio_file:
+            audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format="audio/mpeg")
+    except FileNotFoundError:
+        st.error("Audio file not found")
     
-    st.audio("voiceovers/Rumtek_Monastery.mp3")
-    st.markdown("</div>", unsafe_allow_html=True)
-
 # Right column - Panorama section
 with col1:
     with open("panorama_aframe.html") as f:
@@ -46,4 +50,5 @@ with col1:
         height=500, 
         width=800,  # made smaller (was 800)
         scrolling=False
+
     )
