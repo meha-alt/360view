@@ -34,7 +34,7 @@ col1, col2 = st.columns(2)
 with col2:
     # Fix: Use binary reading for Streamlit Cloud
     try:
-        with open("voiceovers/Rumtek_Monastery.mp3", "rb") as audio_file:
+        with open("Rumtek_Monastery.mp3", "rb") as audio_file:
             audio_bytes = audio_file.read()
         st.audio(audio_bytes, format="audio/mpeg")
     except FileNotFoundError:
@@ -52,3 +52,4 @@ with col1:
         scrolling=False
 
     )
+
