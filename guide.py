@@ -77,7 +77,7 @@ Your task is to:
    - Suggest local cuisine and dining options
    - Add cultural insights and travel tips
    - Consider weather and seasonal factors for {travel_season}
-   - Include emergency contacts 
+   
    - Be specific about locations, distances, and travel times
    - Provide alternative options for different weather conditions
 
@@ -256,4 +256,5 @@ def main():
                     st.error(f"Error generating itinerary: {str(e)}")
 
 if __name__ == "__main__":
+
     main()
