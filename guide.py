@@ -7,7 +7,11 @@ import io
 
 # Load environment variables
 load_dotenv()
-
+st.set_page_config(
+    page_title="DharmaGuide",  
+    page_icon="🛕",             
+    layout="wide"               
+)
 def apply_custom_css():
     st.markdown("""
     <style>
@@ -261,5 +265,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
