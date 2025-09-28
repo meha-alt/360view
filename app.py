@@ -7,8 +7,20 @@ st.markdown(
     """
     <style>
     .stApp {
-         background: radial-gradient(circle at top, #f9f3e7, #e5d1a8, #cbb68c);
-        color: #3b2f1e;
+         background: 
+         radial-gradient(circle at top left, rgba(255, 223, 100, 0.4) 0%, transparent 50%),
+        linear-gradient(
+         135deg,
+              #6b3f3f 0%,
+                #7a4b4b 15%,
+                #8f5959 30%,
+                #a2736f 45%,
+                #b37f7f 55%,
+                #e0b84d 65%,
+                #c4a392 75%,
+                #a2736f 90%,
+                #6b3f3f 100%
+        );
         font-family: "Georgia", serif;
     }
     h1 {
