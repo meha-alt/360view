@@ -13,7 +13,9 @@ def apply_custom_css():
     <style>
     /* Main app background with subtle gradient */
     .stApp {
-        background: linear-gradient(135deg, 
+        background: 
+        radial-gradient(circle at top left, rgba(255, 223, 100, 0.4) 0%, transparent 50%),
+        linear-gradient(135deg, 
         #6b3f3f 0%,
                 #7a4b4b 15%,
                 #8f5959 30%,
@@ -259,4 +261,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
