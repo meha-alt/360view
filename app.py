@@ -1,6 +1,10 @@
 import streamlit as st
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="View360",  
+    page_icon="🛕",             
+    layout="wide"               
+)
 
 # ---- Page styling ----
 st.markdown(
