@@ -14,14 +14,15 @@ def apply_custom_css():
     /* Main app background with subtle gradient */
     .stApp {
         background: linear-gradient(135deg, 
-        #8d6e63 0%,      /* Medium Brown */
-        #a1887f 15%,     /* Light Brown */
-        #bcaaa4 30%,     /* Warm Beige */
-        #d7ccc8 45%,     /* Light Beige */
-        #efebe9 60%,     /* Cream */
-        #f3e5ab 75%,     /* Warm Cream */
-        #ddbf94 90%,     /* Golden Brown */
-        #8d6e63 100%     /* Back to Brown */
+        #6b3f3f 0%,
+                #7a4b4b 15%,
+                #8f5959 30%,
+                #a2736f 45%,
+                #b37f7f 55%,
+                #e0b84d 65%,
+                #c4a392 75%,
+                #a2736f 90%,
+                #6b3f3f 100%
         );
     }
     .main-header {
@@ -258,3 +259,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
