@@ -1,7 +1,5 @@
 import streamlit as st
 import base64
-from guide import main
-from view import view
 
 # Page config
 st.set_page_config(page_title="MONASTERY360", page_icon="🛕", layout="wide")
@@ -120,3 +118,4 @@ with col3:
         """,
         unsafe_allow_html=True
     )
+
