@@ -1,0 +1,65 @@
+{
+  "Gangtok": {
+    "Hotels": [
+      {"Hotel Name":"Gangtok Central Rooms","Hotel Type":"Budget","Address":"Denzong Cinema Road, Gangtok, Sikkim 737101","Price per Night (INR)":1800,"Rating (out of 10)":8.6,"Room Type":"Deluxe Room"},
+      {"Hotel Name":"Hotel Heritage Near Mall Road","Hotel Type":"Budget","Address":"Tibet Road, 737101 Gangtok","Price per Night (INR)":902,"Rating (out of 10)":8.5,"Room Type":"Budget double room"},
+      {"Hotel Name":"HOTEL RENDEZVOUS","Hotel Type":"Budget","Address":"NH 10, Behind Telephone Exchange, 737101 Gangtok, India","Price per Night (INR)":2142,"Rating (out of 10)":8.6,"Room Type":"Standard Double Room"},
+      {"Hotel Name":"Ginger Gangtok","Hotel Type":"Luxury","Address":"Indira Bypass Road, 737101 Gangtok, India","Price per Night (INR)":3299,"Rating (out of 10)":8.5,"Room Type":"Luxe Twin Room"},
+      {"Hotel Name":"Summit Norling Resort & Spa","Hotel Type":"Luxury","Address":"Rongay Gangtok, 737101 Gangtok, India","Price per Night (INR)":4067,"Rating (out of 10)":8.3,"Room Type":"King Executive View Room with balcony and sofa cum bed"}
+    ],
+    "Places": [
+      {"Place Name":"Do Drul Chorten","Address":"M.P.Golai, Tadong, Gangtok, Sikkim 737102","Description":"Large hilltop Buddhist temple with a golden-domed stupa, shrines & prayer wheels.","Entry Fee (INR)":0,"Timings":"9:00 AM - 5:00 PM","Contact Number":3592209090,"Rating (out of 5)":4.4,"Tags":["buddhist","temple","monastery","historic","scenic"]},
+      {"Place Name":"Ban Jhakri Falls Park","Address":"Ban Jhakri Falls Park, Gangtok, Sikkim 737103","Description":"A tourist attraction with a waterfall, lush greenery, adventure sports, and cultural displays.","Entry Fee (INR)":50,"Timings":"8:00 AM - 6:00 PM","Contact Number":null,"Rating (out of 5)":4.4,"Tags":["nature","waterfall","adventure","family friendly","scenic"]},
+      {"Place Name":"Hanuman Tok Temple","Address":"Gangtok, Sikkim 737103","Description":"A colorful, Army-maintained Hindu temple complex with dramatic valley and mountain views.","Entry Fee (INR)":0,"Timings":"5:00 AM - 7:00 PM","Contact Number":null,"Rating (out of 5)":4.7,"Tags":["hindu","temple","historic","scenic"]},
+      {"Place Name":"Enchey Monastery","Address":"Gangtok, Sikkim 737103","Description":"A secluded, colorful Tibetan Buddhist monastery from 1908, standing on a hill above Gangtok.","Entry Fee (INR)":25,"Timings":"9:00 AM - 5:00 PM","Contact Number":3592209090,"Rating (out of 5)":4.6,"Tags":["buddhist","monastery","historic","scenic"]},
+      {"Place Name":"Ranka Monastery","Address":"Lingdum, Sikkim 737102","Description":"A peaceful Buddhist monastery known for its vibrant, decorative facade and charming hillside locale.","Entry Fee (INR)":0,"Timings":"Open 24 hours","Contact Number":3592209090,"Rating (out of 5)":4.7,"Tags":["buddhist","monastery","scenic","historic"]}
+    ]
+  },
+  "Rumtek": {
+    "Hotels":[
+      {"Hotel Name":"Thehivegangtok","Hotel Type":"Budget","Address":"Rumtek Monastery Road, 737135 Martam, India","Price per Night (INR)":1169,"Rating (out of 10)":null,"Room Type":"Double Room with Mountain View"},
+      {"Hotel Name":"Cactus Cafe & Homestay","Hotel Type":"Budget","Address":"Surya Gaon, Lower Syari, 737102 Tādong, India","Price per Night (INR)":1000,"Rating (out of 10)":null,"Room Type":"Single Room"},
+      {"Hotel Name":"Esses House","Hotel Type":"Budget","Address":"Esses house NH 10 Daragaon Tadong, 737102 Gangtok, India","Price per Night (INR)":1440,"Rating (out of 10)":7.5,"Room Type":"Twin Room"},
+      {"Hotel Name":"Casa Tranquila","Hotel Type":"Luxury","Address":"Rumtek Monastery Road, 737135 Gangtok, India","Price per Night (INR)":3129,"Rating (out of 10)":9.5,"Room Type":"Deluxe Double Room"},
+      {"Hotel Name":"Sterling Gangtok Orange Village","Hotel Type":"Luxury","Address":"7th Mile, Samdure, PO- Todong, 737102 Gangtok, India","Price per Night (INR)":3999,"Rating (out of 10)":7.7,"Room Type":"Classic Room"}
+    ],
+    "Places":[
+      {"Place Name":"Rumtek Dharma Chakra Centre","Address":"Dharma Chakra Centre, Sikkim 737135","Description":"A colorful and historic Buddhist monastery in a tranquil locale with scenic valley views.","Entry Fee (INR)":10,"Timings":"Open 24 hours","Contact Number":null,"Rating (out of 5)":4.6,"Tags":["buddhist","monastery","historic","scenic"]},
+      {"Place Name":"Shanti View point","Address":"Ranipool-Rumtek-Sang Rd, Sikkim 737135","Description":"A popular spot for tourists seeking panoramic views of the lush hills and valleys.","Entry Fee (INR)":0,"Timings":"6:00 AM - 7:00 PM","Contact Number":8016922684,"Rating (out of 5)":4.1,"Tags":["viewpoint","scenic","nature"]},
+      {"Place Name":"Jawaharlal Nehru Botanical Garden","Address":"Sang Rd, Rumtek, Gangtok, Sikkim 737135","Description":"A landscaped garden featuring a variety of flowers, fountains, and other water features.","Entry Fee (INR)":null,"Timings":"9:00 AM - 5:00 PM","Contact Number":3592209090,"Rating (out of 5)":4.2,"Tags":["botanical garden","nature","family friendly","scenic"]},
+      {"Place Name":"Saramsa Garden","Address":"Sikkim 737135","Description":"Landscaped gardens and a greenhouse showcasing a variety of flora, popular with picnickers.","Entry Fee (INR)":10,"Timings":"8:00 AM - 6:00 PM","Contact Number":null,"Rating (out of 5)":4.1,"Tags":["botanical garden","nature","family friendly"]},
+      {"Place Name":"Black Cat Museum","Address":"Lingding Rd, Upper Tadong, Deorali Bazar, Gangtok, Sikkim 737102","Description":"A museum showcasing the rich history, culture, and traditions of the warrior clans of Sikkim.","Entry Fee (INR)":10,"Timings":"10 AM-1:00 PM & 3:00 PM-7:00 PM","Contact Number":null,"Rating (out of 5)":4.8,"Tags":["museum","historic","culture"]}
+    ]
+  },
+  "Namchi": {
+    "Hotels":[
+      {"Hotel Name":"Banari Regency By Summit","Hotel Type":"Luxury","Address":"Chardham Road, Purano, Namchi, Sikkim 737126","Price per Night (INR)":2681,"Rating (out of 10)":9.4,"Room Type":"Premium View Room, Double Room"},
+      {"Hotel Name":"Cherry Resort","Hotel Type":"Budget","Address":"Temi Tea Garden South Sikkm, Namchi, Sikkim 737134•098000 13666","Price per Night (INR)":2519,"Rating (out of 10)":8.2,"Room Type":"Super Deluxe Room"},
+      {"Hotel Name":"Hotel Maurya Residency Namchi","Hotel Type":"Luxury","Address":"Boomtar Namchi, Road, Bhanjyang, Sikkim 737126","Price per Night (INR)":7810,"Rating (out of 10)":9.4,"Room Type":"Super Deluxe Room"},
+      {"Hotel Name":"Hotel Bliss Makhim Residency( The Gupta Group)","Hotel Type":"Budget","Address":"Jorethang, Road, near IPR Office, Namchi, Sikkim 737126","Price per Night (INR)":1667,"Rating (out of 10)":9.4,"Room Type":"Standard Room, Twin Room"},
+      {"Hotel Name":"Hotel Maenamla, Namchi","Hotel Type":"Budget","Address":"Hospital dara, opp. Ropeway Terminus, Namchi, Sikkim 737126","Price per Night (INR)":2292,"Rating (out of 10)":9.2,"Room Type":"Deluxe Room"}
+    ],
+    "Places":[
+      {"Place Name":"Samdruptse","Address":"Namchi, Sikkim 737126","Description":"Landmark monastery & massive statue situated on a hill offering picturesque views.","Entry Fee (INR)":50,"Timings":"9:00 AM - 5:30 PM","Contact Number":null,"Rating (out of 5)":4.7,"Tags":["buddhist","monastery","historic","scenic"]},
+      {"Place Name":"Siddheshwar Dham (Char Dham)","Address":"582V+JHR, Namchi - Namthang Rd, Agam Gram, Namchi, Rhenock, Sikkim 737126","Description":"Sprawling temple complex featuring multiple towers & a giant statue of Lord Shiva.","Entry Fee (INR)":50,"Timings":"6:30 AM - 8:30 PM","Contact Number":3592209090,"Rating (out of 5)":4.7,"Tags":["hindu","temple","historic","scenic"]},
+      {"Place Name":"Central Park Namchi","Address":"Namchi-Manpur Rd, Namchi, Sikkim 737126","Description":"Park located in Namchi.","Entry Fee (INR)":null,"Timings":"7:00 AM - 8:00 AM","Contact Number":null,"Rating (out of 5)":4.2,"Tags":["park","family friendly","scenic"]},
+      {"Place Name":"Serdup Choling Monastery","Address":"Alley Goompa Rd, Namchi, Sikkim 737126","Description":"Serdup Choling Monastery is a peaceful, less-crowded monastery that offers quiet reflection.","Entry Fee (INR)":null,"Timings":"9:00 AM - 6:00 PM","Contact Number":null,"Rating (out of 5)":4.6,"Tags":["buddhist","monastery","scenic","peaceful"]},
+      {"Place Name":"Rose Garden Solophok","Address":"Below Siddheswar Dham, Namchi, Sikkim 737126","Description":"A lovely rose garden near Siddheshwar Dham, colorful and worth a visit.","Entry Fee (INR)":50,"Timings":"10:00 AM - 9:30 PM","Contact Number":6295607427,"Rating (out of 5)":4.2,"Tags":["garden","botanical garden","nature","family friendly","scenic"]}
+    ]
+  },
+  "Ravangla": {
+    "Hotels":[
+      {"Hotel Name":"Sikkim Sarovar Hotel And Restro","Hotel Type":"Luxury","Address":"Buddha Park Street, Ravangla, Sikkim 737139","Price per Night (INR)":2514,"Rating (out of 10)":9.8,"Room Type":"Deluxe Room"},
+      {"Hotel Name":"The Alnus Ravangla","Hotel Type":"Luxury","Address":"Ralang Road, Ravangla, Sikkim 737139","Price per Night (INR)":2524,"Rating (out of 10)":9.4,"Room Type":"Double Room"},
+      {"Hotel Name":"The Barfung Retreat","Hotel Type":"Budget","Address":"Primary School, above Barfung Road, Ravangla, Sikkim 737139","Price per Night (INR)":2108,"Rating (out of 10)":8.6,"Room Type":"Standard, Deluxe Room"},
+      {"Hotel Name":"Hotel Ravongla Star","Hotel Type":"Budget","Address":"Road, opposite Power Colony, Kewzing, Ravangla, Sikkim 737139","Price per Night (INR)":1415,"Rating (out of 10)":8.8,"Room Type":"Standard Twin Room"}
+    ],
+    "Places":[
+      {"Place Name":"Buddha Park","Address":"Ravangla, Sikkim 737139","Description":"Lush gardens with mountain views, plus broad steps up to a bronze Buddha statue.","Entry Fee (INR)":50,"Timings":"9:00 AM - 6:00 PM","Contact Number":3592209090,"Rating (out of 5)":4.8,"Tags":["park","buddhist","scenic","family friendly"]},
+      {"Place Name":"Ralang New Monastery","Address":"Sikkim 737139","Description":"Colorful mountain monastery with a large collection of silk paintings & a lively August festival.","Entry Fee (INR)":null,"Timings":null,"Contact Number":8016105747,"Rating (out of 5)":4.7,"Tags":["buddhist","monastery","historic","festival"]},
+      {"Place Name":"Maenam Wildlife Sanctuary","Address":"Ravangla, Sikkim","Description":"A must-do trekking experience, with a majestic view.","Entry Fee (INR)":55,"Timings":"Open 24 hours","Contact Number":null,"Rating (out of 5)":4.0,"Tags":["wildlife","nature","trekking","scenic"]},
+      {"Place Name":"Ralong Hot Springs","Address":"Sikkim 737139","Description":"Naturally occurring hot springs popular in winter months.","Entry Fee (INR)":null,"Timings":"Open 24 hours","Contact Number":null,"Rating (out of 5)":4.4,"Tags":["hot springs","relaxation","nature","family friendly"]},
+      {"Place Name":"Bon Monastery","Address":"Sikkim 737139","Description":"One of India's few Bon monasteries, offering a unique religious experience.","Entry Fee (INR)":null,"Timings":null,"Contact Number":null,"Rating (out of 5)":4.6,"Tags":["buddhist","bon religion","monastery","historic","scenic"]}
+    ]
+  }
+}
