@@ -9,6 +9,10 @@ from pathlib import Path
 
 load_dotenv()
 
+st.set_page_config(
+    page_title="DharmaGuide",  
+    page_icon="🛕",             
+    
 # --- Apply Custom CSS ---
 def apply_custom_css():
     st.markdown("""
@@ -174,3 +178,4 @@ Use plain text with line breaks, not HTML.
 
     
             
+
