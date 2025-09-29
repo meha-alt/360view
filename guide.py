@@ -1,270 +1,176 @@
 import streamlit as st
-from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import SystemMessage, HumanMessage
+import json
+from dotenv import load_dotenv
 from docx import Document
 import io
+from pathlib import Path
 
-# Load environment variables
 load_dotenv()
-st.set_page_config(
-    page_title="DharmaGuide",  
-    page_icon="🛕",             
-    layout="wide"               
-)
+
+# --- Apply Custom CSS ---
 def apply_custom_css():
     st.markdown("""
     <style>
-    /* Main app background with subtle gradient */
     .stApp {
-        background: 
-        radial-gradient(circle at top left, rgba(255, 223, 100, 0.4) 0%, transparent 50%),
-        linear-gradient(135deg, 
-        #6b3f3f 0%,
-                #7a4b4b 15%,
-                #8f5959 30%,
-                #a2736f 45%,
-                #b37f7f 55%,
-                #e0b84d 65%,
-                #c4a392 75%,
-                #a2736f 90%,
-                #6b3f3f 100%
-        );
+        background:
+          radial-gradient(circle at top left, rgba(255, 223, 100, 0.4) 0%, transparent 50%),
+          linear-gradient(135deg, #6b3f3f 0%, #7a4b4b 15%, #8f5959 30%, #a2736f 45%, #b37f7f 55%, #e0b84d 65%, #c4a392 75%, #a2736f 90%, #6b3f3f 100%);
     }
     .main-header {
         background: linear-gradient(135deg, #8b6f47 0%, #a0845c 50%, #b8956b 100%);
-        padding: 2rem;
-        border-radius: 15px;
+        padding: 1rem;
+        border-radius: 8px;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         box-shadow: 0 8px 32px rgba(139, 111, 71, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: #fff;
     }
-    
-    
-    
-    /* Download button */
     .stDownloadButton > button {
         background: linear-gradient(135deg, #6d4c36 0%, #8b6f47 100%) !important;
         color: white !important;
         border: none !important;
-        border-radius: 20px !important;
-        padding: 0.6rem 1.5rem !important;
+        border-radius: 14px !important;
+        padding: 0.45rem 1.2rem !important;
         font-weight: 600 !important;
         box-shadow: 0 4px 12px rgba(109, 76, 54, 0.3) !important;
     }
-    
     </style>
-    
     """, unsafe_allow_html=True)
 
+apply_custom_css()
+st.markdown('<div class="main-header"><h1>DHARMA GUIDE</h1></div>', unsafe_allow_html=True)
+st.markdown("### Note: More cities will be added as we expand our Database")
+
+# --- Load DB safely ---
+DB_PATH = Path("data.json")
+if not DB_PATH.exists():
+    st.error("data.json not found in the app folder. Please place your combined JSON file named 'data.json' in the same folder.")
+    st.stop()
+
+try:
+    with DB_PATH.open("r", encoding="utf-8") as f:
+        TOURIST_DB = json.load(f)
+except Exception as e:
+    st.error(f"Failed to load data.json: {e}")
+    st.stop()
+
+# --- derive city choices and tags from your structure ---
+city_choices = sorted(list(TOURIST_DB.keys()))
+
+# collect tags safely from each city's Places
+all_tags_set = set()
+for city_name, city_data in TOURIST_DB.items():
+    # places may be under 'Places' or 'places'
+    places = city_data.get("Places") or city_data.get("places") or []
+    for p in places:
+        # Tags might be 'Tags' or 'tags'
+        tags = p.get("Tags") or p.get("tags") or []
+        for t in tags:
+            if isinstance(t, str):
+                all_tags_set.add(t)
+all_tags = sorted(all_tags_set)
+
+# --- helper to create Word doc ---
 def create_docx(itinerary_text):
     doc = Document()
     for line in itinerary_text.split("\n"):
         doc.add_paragraph(line)
-    
     buffer = io.BytesIO()
     doc.save(buffer)
     buffer.seek(0)
     return buffer
 
-def create_itinerary_prompt():
-    return ChatPromptTemplate.from_messages([
-        ("system", """You are SIKKIM_TRAVEL_PRO, an AI assistant that creates personalized travel itineraries for Sikkim based on user preferences and requirements.
+# --- Trip Preferences Form ---
+with st.form("trip_form"):
+    st.subheader("Trip Preferences")
+    traveler_name = st.text_input("Traveler Name", value="Traveler")
+    days = st.slider("Number of days in the region", 1, 7, 2)
+    city_focus = st.multiselect("Which city/area to focus on?", city_choices, default=city_choices[:2])
+    start_time = st.time_input("Preferred sightseeing start time")
+    end_time = st.time_input("Preferred sightseeing end time")
 
-Your task is to:
-1. Analyze the provided travel preferences and details
-2. Generate a well-structured, comprehensive itinerary in markdown format
-3. Follow these guidelines:
-   - Create a **detailed day-by-day itinerary** tailored to {travel_duration}
-   - Include popular attractions, hidden gems, and local experiences
-   - Consider {budget_range} when suggesting accommodations and activities
-   - Factor in {travel_style} and {special_interests}
-   - Include practical information (transportation, timings, costs)
-   - Suggest local cuisine and dining options
-   - Add cultural insights and travel tips
-   - Consider weather and seasonal factors for {travel_season}
-   
-   - Be specific about locations, distances, and travel times
-   - Provide alternative options for different weather conditions
+    tags_selected = st.multiselect("Select your interests", all_tags)
+    pace = st.radio("Trip pace", ["Fast (many places/day)", "Relaxed (fewer places/day)"])
 
-Itinerary Structure:
-[Header]
-Sikkim Travel Itinerary | Duration | Season
+    free_only = st.checkbox("Only free attractions?", value=False)
+    transport_mode = st.selectbox("Preferred travel mode", ["Private Car", "Shared Taxi", "Local Transport"])
 
-[Trip Overview]
-Brief overview of the planned journey
+    st.markdown("### Hotel Preferences")
+    max_budget = st.number_input("Approximate maximum budget per night (INR)", min_value=500, max_value=50000, value=5000, step=500)
+    hotel_class = st.selectbox("Hotel preference", ["Budget", "Mid-range", "Luxury"])
+    min_rating = st.slider("Minimum hotel rating (out of 10)", min_value=1, max_value=10, value=7)
+    submitted = st.form_submit_button("Generate Itinerary")
 
-[Day-by-Day Itinerary]
-Day 1: Location
-- Morning: Activity/Sightseeing
-- Afternoon: Activity/Sightseeing  
-- Evening: Activity/Dining
-- Accommodation: Hotel/Stay recommendation
+if submitted:
+    # basic validation
+    if not city_focus:
+        st.error("Please choose at least one city.")
+        st.stop()
 
-[Transportation Guide]
-Getting around Sikkim
+    start_time_str = start_time.strftime("%H:%M")
+    end_time_str = end_time.strftime("%H:%M")
 
-[Accommodation Recommendations]
-Budget-appropriate stay options
+    # Create a compact context to send — here we send full city data (you can pre-filter if you want)
+    compact_context = {}
+    for c in city_focus:
+        compact_context[c] = TOURIST_DB.get(c, {})
 
-[Local Cuisine & Dining]
-Must-try dishes and restaurants
+    context_json = json.dumps(compact_context, indent=2, ensure_ascii=False)
 
-[Packing List]
-Season-appropriate items to pack
+    system_prompt = """
+You are a travel assistant. ONLY use the provided CONTEXT JSON for factual answers.
+Do NOT make up facts. Format a friendly, day-wise itinerary for the traveler.
+"""
+    human_prompt = f"""
+Traveler name: {traveler_name}
+Trip days: {days}
+City focus: {city_focus}
+Sightseeing: {start_time_str} to {end_time_str}
+Interests: {tags_selected}
+Pace: {pace}
+Free attractions only: {free_only}
+Transport mode: {transport_mode}
 
-[Travel Tips & Cultural Insights]
-Local customs and practical advice
+Hotel preferences:
+- Max budget per night: {max_budget} INR
+- Hotel class preference: {hotel_class}
+- Minimum rating: {min_rating}/10
 
-[Budget Breakdown]
-Estimated costs for activities and stays
+CONTEXT:
+{context_json}
 
-[Emergency Information]
-Important contacts and information"""),
-        
-        ("human", """Create a personalized Sikkim travel itinerary with these details:
-        
-Traveler Information:
-- Name: {traveler_name}
+Please create a day-wise itinerary using only places in CONTEXT that match the selected interests and cities. 
+If no places match, select from all available places.
+Use plain text with line breaks, not HTML.
+"""
+    messages = [SystemMessage(content=system_prompt.strip()), HumanMessage(content=human_prompt)]
 
-- Number of Travelers: {group_size}
-- Travel Duration: {travel_duration}
-
-Travel Preferences:
-- Budget Range: {budget_range}
-- Travel Style: {travel_style}
-- Accommodation Preference: {accommodation_type}
-- Transportation: {transport_mode}
-
-Interests & Activities:
-{special_interests}
-
-Travel Season & Dates:
-{travel_season}
-
-Special Requirements:
-{special_requirements}
-
-Specific Locations/Attractions:
-{preferred_locations}
-
-Additional Preferences:
-{additional_preferences}""")
-    ])
-
-def generate_itinerary(user_inputs):
-    llm = ChatGroq(temperature=0.3, model_name="openai/gpt-oss-20b")
-    prompt = create_itinerary_prompt()
-    chain = prompt | llm
-    response = chain.invoke(user_inputs)
-    return response.content
-
-def main():
-    apply_custom_css()
-    
-    st.title("🏔️ Sikkim Tourism Itinerary Generator")
-    st.subheader("Create your perfect Sikkim adventure")
-
-    with st.expander("✈️ Plan Your Sikkim Journey", expanded=True):
-        with st.form("itinerary_form"):
-            col1, col2 = st.columns(2)
-            with col1:
-                traveler_name = st.text_input("Your Name*", placeholder="John Traveler")
-                
-            with col2:
-                group_size = st.selectbox("Number of Travelers*", [1, 2, 3, 4, 5, 6, 7, 8, "More than 8"])
-                travel_duration = st.selectbox("Trip Duration*", 
-                    ["2-3 days", "4-5 days", "6-7 days", "1 week", "10-12 days", "2 weeks", "More than 2 weeks"])
-            
-            st.markdown("**Travel Preferences**")
-            col3, col4 = st.columns(2)
-            with col3:
-                budget_range = st.selectbox("Budget Range (per person)*", 
-                    ["Budget (₹5,000-15,000)", "Mid-range (₹15,000-30,000)", "Luxury (₹30,000-60,000)", "Ultra-luxury (₹60,000+)"])
-                travel_style = st.selectbox("Travel Style*", 
-                    ["Adventure & Trekking", "Cultural & Heritage", "Nature & Wildlife", "Relaxed Sightseeing", "Photography", "Spiritual Journey", "Mixed Experience"])
-            with col4:
-                accommodation_type = st.selectbox("Accommodation Preference", 
-                    ["Hotels", "Homestays", "Resorts", "Guesthouses", "Camping", "Mixed", "No preference"])
-                transport_mode = st.selectbox("Transportation", 
-                    ["Private Car/Taxi", "Shared Jeep", "Public Transport", "Self-drive", "Motorcycle", "Mixed", "Need recommendation"])
-            
-            st.markdown("**Interests & Activities**")
-            special_interests = st.text_area(
-                "What interests you most in Sikkim?",
-                placeholder="e.g., Kanchenjunga views, Buddhist monasteries, local cuisine, adventure sports, traditional villages, shopping, etc.",
-                height=100
+    try:
+        llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0.2)
+        response = llm(messages)
+        st.subheader("Generated Itinerary")
+        if hasattr(response, "content"):
+            itinerary = response.content.replace("<br>", "\n")
+            st.markdown(itinerary)
+            docx_buffer = create_docx(itinerary)
+            st.download_button(
+                label="Download Itinerary as Word Document",
+                data=docx_buffer,
+                file_name=f"{traveler_name}_itinerary.docx",
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
-            
-            st.markdown("**Travel Season & Timing**")
-            travel_season = st.text_area(
-                "Preferred travel dates/season*",
-                placeholder="e.g., March 2024, Summer 2024, Avoid monsoon, Rhododendron season (April-May), Clear mountain views preferred",
-                height=80
-            )
-            
-            st.markdown("**Specific Preferences**")
-            preferred_locations = st.text_area(
-                "Must-visit places in Sikkim",
-                placeholder="e.g., Gangtok, Pelling, Lachen, Lachung, Yuksom, Ravangla, Zuluk, North Sikkim, West Sikkim",
-                height=100
-            )
-            
-            special_requirements = st.text_area(
-                "Special requirements or restrictions",
-                placeholder="e.g., Vegetarian food only, elderly travelers, medical conditions, accessibility needs, permits needed",
-                height=80
-            )
-            
-            additional_preferences = st.text_input(
-                "Any other preferences?",
-                placeholder="e.g., 'Avoid crowded places' or 'Include sunrise points' or 'Focus on local experiences'"
-            )
-            
-            submitted = st.form_submit_button("🗺️ Generate My Sikkim Itinerary")
-    
-    if submitted:
-        if not traveler_name or not travel_duration or not travel_season:
-            st.error("Please fill in all required fields (*)")
         else:
-            with st.spinner("🏔️ Crafting your perfect Sikkim adventure..."):
-                user_inputs = {
-                    "traveler_name": traveler_name,
-                    
-                    "group_size": group_size,
-                    "travel_duration": travel_duration,
-                    "budget_range": budget_range,
-                    "travel_style": travel_style,
-                    "accommodation_type": accommodation_type,
-                    "transport_mode": transport_mode,
-                    "special_interests": special_interests,
-                    "travel_season": travel_season,
-                    "preferred_locations": preferred_locations,
-                    "special_requirements": special_requirements,
-                    "additional_preferences": additional_preferences
-                }
+            st.write(str(response))
+    except Exception as e:
+        st.error(f"Error calling LLM: {e}")
+
                 
-                try:
-                    itinerary = generate_itinerary(user_inputs)
-                    
-                    st.success("✅ Your Sikkim itinerary is ready!")
-                    st.markdown("---")
-                    st.subheader("Your Personalized Sikkim Travel Itinerary")
-                    st.markdown(itinerary, unsafe_allow_html=True)
-                    
-                    st.download_button(
-                        label="📥 Download Itinerary as Word Document",
-                        data=create_docx(itinerary),
-                        file_name=f"Sikkim_Itinerary_{traveler_name.replace(' ', '_')}.docx",
-                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    )
-                except Exception as e:
-                    st.error(f"Error generating itinerary: {str(e)}")
-
-if __name__ == "__main__":
-
-    main()
+    
+  
 
 
-
+    
+            
